@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Dubbo 入门</title>
+    <url>/2021/05/02/Dubbo-%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<blockquote><p><a href="https://dubbo.apache.org/zh/community/">Dubbo官方文档</a><br><a href="https://github.com/apache/dubbo">Dubbo源码</a></p>
+</blockquote>
+
+<h1 id="Dubbo是什么"><a href="#Dubbo是什么" class="headerlink" title="Dubbo是什么"></a>Dubbo是什么</h1><p>个人理解中，<strong>Dubbo</strong>其实就是是一个用于服务治理的RPC框架。再进一步理解，即需要明白<strong>何为服务治理</strong>？何为<strong>RPC框架</strong>?</p>
+<p><strong>何为服务治理</strong>？当一个服务为了应对访问压力等问题时，可以通过拆分的方式将服务划分成多个微服务，但随之而来的问题是：</p>
+<ul>
+<li>如果多个服务之间需要相互依赖，服务 URL 配置管理变得非常困难。甚至分不清哪个应用要在哪个应用之前启动</li>
+<li>哪个服务面临的访问压力比较大？是否需要加机器？或者哪个服务访问压力小，可以减机器？在这些问题上，需要我们额外借助其他工具或者编写额外代码来统计各个服务的负载情况。</li>
+</ul>
+<p> 而服务治理其实就是对这些个服务进行一个统一管理，如引入服务注册中心，通过动态地注册和发现服务，使服务的位置透明。</p>
+<p>何为<strong>RPC框架</strong>?首先RPC指的是远程过程调用，简单的理解其实就是一个节点请求另一个节点提供的服务。而一个<strong>RPC框架</strong>主要包括两个协议的实现，即<strong>传输协议</strong>和<strong>序列化协议</strong>。如使用HTTP 2.0作为传输协议的gRPC，又如dubbo采用的自定义报文的tcp协议。</p>
+<p>再说说<strong>序列化协议</strong>，它定了传输内容最终以一种什么样的方式进行呈现，如基于文本编码的 xml json，也有二进制编码的 protobuf hessian等。</p>
+<h1 id="Dubbo可以做什么"><a href="#Dubbo可以做什么" class="headerlink" title="Dubbo可以做什么"></a>Dubbo可以做什么</h1><p>理解了Dubbo为何物，对Duboo可以干啥，心中自然有点B数。</p>
+<ul>
+<li>减少服务之间调用时代码的编写量</li>
+<li>提供服务注册和发现，无需写死服务提供方的URL</li>
+<li>提供的软负载均衡及容错机制，可以一定程度上代替硬件的负载均衡器，降低成本</li>
+</ul>
+<h1 id="Duboo如何使用"><a href="#Duboo如何使用" class="headerlink" title="Duboo如何使用"></a>Duboo如何使用</h1><p>代码已经上传到码云：<a href="https://gitee.com/legendaryhaha/dubbo4j">链接</a><br>代码结构可以分为三个模块，其实就是外观（门面）模式的实现。注册中心zookeeper需要提前安装。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">dubbo4j</span><br><span class="line">│      </span><br><span class="line">├─client：客户端，包含测试代码</span><br><span class="line">│              </span><br><span class="line">├─facade-api：对外暴露的接口</span><br><span class="line">│       </span><br><span class="line">└─service-api：服务端</span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <categories>
+        <category>Dubbo</category>
+      </categories>
+      <tags>
+        <tag>Dubbo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/04/30/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>About me</title>
+    <url>/2021/05/02/about/</url>
+    <content><![CDATA[<blockquote>
+<p>一位普通的码农，20届，毕业于广州的一所二本院校。渴望的征途是星辰大海，道阻且长，但行则将至，共勉。</p>
+</blockquote>
+<p>微信：fsn-summer<br>CSDN：<a href="https://blog.csdn.net/legendaryhaha">https://blog.csdn.net/legendaryhaha</a><br>现居：广东省广州市</p>
+<!-- ![avatar.jpg](https://i.loli.net/2019/12/02/Hw5WJIMKzi1YrU8.jpg) -->]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+</search>
