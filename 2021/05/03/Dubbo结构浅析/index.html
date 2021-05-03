@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>categories |  </title>
+      <title>Dubbo结构浅析 |  </title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -42,12 +42,209 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-Dubbo结构浅析"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Dubbo结构浅析
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/03/Dubbo%E7%BB%93%E6%9E%84%E6%B5%85%E6%9E%90/" class="article-date">
+  <time datetime="2021-05-03T03:27:21.000Z" itemprop="datePublished">2021-05-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dubbo/">Dubbo</a>
+  </div>
   
-    <h1 class="page-type-title">分类</h1>
-    <div class="categories-box">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dubbo/">Dubbo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li></ul>
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">514</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
   
+    <div class="article-entry" itemprop="articleBody">
+       
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dubbo源码获取：</span><br><span class="line">git clone https:<span class="comment">//github.com/apache/incubator-dubbo.git</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="源码结构"><a href="#源码结构" class="headerlink" title="源码结构"></a>源码结构</h1><p><img src="https://img-blog.csdnimg.cn/20210410115254206.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xlZ2VuZGFyeWhhaGE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="模块说明"><a href="#模块说明" class="headerlink" title="模块说明"></a>模块说明</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">dubbo</span><br><span class="line">│      </span><br><span class="line">└─dubbo-cluster：提供集群部署，路由，软负载均衡及容错机制。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-config：配置模块，实现了API配置、属性配置、XML配置、注解配置等功能，同时整合了SpringBean，便于用户使用。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-configcenter：顾名思义，duboo对注册中心的集成，目前已集成apollo、consul、etcd、nacos、zookeeper</span><br><span class="line">│       </span><br><span class="line">└─dubbo-container：容器模块，负责管理dubbo加载启动及日志。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-filter：dubbo的过滤器很多，这里感觉是把一些通用的过滤器抽出来作为一个通用的过滤器模块，比如用于缓存的过滤器等。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-metadata：dubbo的元数据中心，可用于存储一些服务提供者、消费者的信息，比如dubbo版本、服务接口的信息。这样，就不会导致所有信息到存储在注册中心中，增加网络、内存等方面的开销。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-monitor：监控模块，用于监控Dubbo接口的调用次数、时间等，不参与业务和使用，所以即使当monitor挂掉之后，也不会影响服务的正常运行。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-plugin：插件模块，提供内置的插件，如QoS、auth.</span><br><span class="line">│       </span><br><span class="line">└─dubbo-registry：注册中心模块。目前已经支持consul、etcd3、eureka、nacos、redis、zookeeper等等。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-remoting：远程通信模块，为消费者和服务提供者提供通信能力。基于Http、Mina、Netty等组件进行实现。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-rpc：同样用于远程通信，但该模块抽象各种通信协议，以及动态代理。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-serialization：序列化模块。支持fastJson、gson、hessian、protobuf等等。</span><br><span class="line">│       </span><br><span class="line">└─dubbo-spring-boot：通过整合Spring boot的特性，可以实现自动装配 (比如： 注解驱动, 自动装配)等功能。</span><br></pre></td></tr></table></figure>
+
+<h1 id="结构分层"><a href="#结构分层" class="headerlink" title="结构分层"></a>结构分层</h1><blockquote>
+<p>图片来自于《深入理解Apache Dubbo与实战》一书。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20210410164048357.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xlZ2VuZGFyeWhhaGE=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其中，大众用户可以通过api的方式使用Service和Config提供的功能。后面的SPI层，提供给扩展者使用，即用户可以基于Dubb进行二次开发。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/05/03/Dubbo%E7%BB%93%E6%9E%84%E6%B5%85%E6%9E%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dubbo/" rel="tag">Dubbo</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/05/02/about/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">About me</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -180,6 +377,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link
